@@ -1,9 +1,9 @@
 
 // TODO: Implement this.
-// Inspired from Wipro Lamp.
-// In the lap, if you tap and release quickly, it changes the light color., 
+// Inspired from Table Lamp.
+// In the lamp, if you tap and release quickly, it changes the light color., 
 // If you tap and hold, it ill increase the brightness.., however, if you release and tap and hold, it decrease the brightness., 
-// and once you release in decreasing mode, it goes back to color changing mode.
+// and once you release for some time in increasing/decreasing mode, it goes back to color changing mode.
 
 
 // TODO: Short Press, Long press , double press, press and hold button functionality in 
