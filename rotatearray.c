@@ -2,7 +2,11 @@
 #include <stdio.h>
 #include <string.h>
 
-#define BREAK_IF_TRUE(condition)        if( (condition) )       { break;}
+#define BREAK_IF_TRUE(condition)        if( (condition) )       {\
+    printf("Invalid parameters %s(%d)\n", __func__, __LINE__);\
+    break;\
+}
+
 #define TEXT_ALIGNMENT  "%-60s"
 // Main
 void testcode(void);
@@ -140,6 +144,60 @@ void rotate_array_left_by_n_temp_dbuff(int *array, int size, int n)
 }
 
 // More optimized approach
+// Reverse array of size 'size' starting from start to end., 
+void reverse(int *array, int size, int start, int end)
+{
+    int temp;
+    do
+    {
+        BREAK_IF_TRUE(  NULL == array   || // Array must be there
+                        0 >= size       || // Array size can't be negative
+                        0 >  start      || // Start can be 0 but not less than 0,
+                        0 >=  end       || // end of array can not be negative
+                        start >= end    || // Can not start before end
+                        end >= size);      // end must be smaller than array size
+
+        while(start < end)
+        {
+            // Swap both to reverse (Just like string reverse !)
+            temp            = array[start];
+            array[start]    = array[end] ;
+            array[end]      = temp;
+
+            start++;
+            end--;
+        }
+    }
+    while(0);
+}
+
+// Best solution: O(n) time complexity and O(1) (temp variable) space complexity
+void rotate_array_left_by_n_optimal(int *array, int size, int n)
+{
+    do
+    {
+        BREAK_IF_TRUE(NULL == array || 0 >= size || 0 >= n || n >=  size);
+
+        // First we rotate first N elemets as they will be reversed and 'slotted' at the end in final stage
+        // if N = 3:
+        // [0, 1, 2, 3, 4, 5] (Step 1 ->) [2, 1, 0, 3, 4, 5]
+        reverse(array, size, 0, n-1);
+
+        // Now we reverse remaining elements to create mirror image of an array
+        // [0, 1, 2, 3, 4, 5] (Step 1 ->) [2, 1, 0, 3, 4, 5] (Step 2 ->) [2, 1, 0, 5, 4, 3]
+        reverse(array, size, n, size-1);
+
+        // Now we have 'mirror' image of what we need, so revers it to get what we actually need.
+        // [0, 1, 2, 3, 4, 5] (Step 1 ->) [2, 1, 0, 3, 4, 5] (Step 2 ->) [2, 1, 0, 5, 4, 3] (Step 2 ->) [3, 4, 5, 0, 1, 2]
+        reverse(array, size, 0, size-1);
+
+        // What we started: [0, 1, 2, 3, 4, 5], what we wanted   -> [3, 4, 5, 0, 1, 2]
+        // What we have after flipping the mirror image of array -> [3, 4, 5, 0, 1, 2]
+        // So, it is the solution we need
+
+    } while (0);
+}
+
 
 
 
@@ -186,7 +244,8 @@ void testcode(void)
         printf("\n");
 
         // rotate_array_left_by_n = rotate_array_left_by_n_simple;
-        rotate_array_left_by_n = rotate_array_left_by_n_temp_dbuff;
+        // rotate_array_left_by_n = rotate_array_left_by_n_temp_dbuff;
+        rotate_array_left_by_n    = rotate_array_left_by_n_optimal;
 
         // Call it. 
         rotate_array_left_by_n(buffer, ARRAY_SIZE, 3);
