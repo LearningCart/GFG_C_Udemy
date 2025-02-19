@@ -188,11 +188,11 @@ void rotate_array_left_by_n_optimal(int *array, int size, int n)
         reverse(array, size, n, size-1);
 
         // Now we have 'mirror' image of what we need, so revers it to get what we actually need.
-        // [0, 1, 2, 3, 4, 5] (Step 1 ->) [2, 1, 0, 3, 4, 5] (Step 2 ->) [2, 1, 0, 5, 4, 3] (Step 2 ->) [3, 4, 5, 0, 1, 2]
+        // [0, 1, 2, 3, 4, 5] (Step 1 ->) [2, 1, 0, 3, 4, 5] (Step 2 ->) [2, 1, 0, 5, 4, 3] (Step 3 ->) [3, 4, 5, 0, 1, 2]
         reverse(array, size, 0, size-1);
 
-        // What we started: [0, 1, 2, 3, 4, 5], what we wanted   -> [3, 4, 5, 0, 1, 2]
-        // What we have after flipping the mirror image of array -> [3, 4, 5, 0, 1, 2]
+        // What we started: [0, 1, 2, 3, 4, 5], what we wanted             -> [3, 4, 5, 0, 1, 2]
+        // What we have after flipping the mirror image of array in step 3 -> [3, 4, 5, 0, 1, 2]
         // So, it is the solution we need
 
     } while (0);
