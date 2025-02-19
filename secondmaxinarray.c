@@ -66,7 +66,7 @@ int find2ndlargest_single(int *array, int total)
         {
                 BREAK_IF_TRUE(NULL == array || total <= 0 );
 
-                // Get 2nd largest elemnt in array
+                // Get 2nd largest element in array
                 for (int i = 0; i < total; i++)
                 {
                         if( array[i] > array[largest] )
