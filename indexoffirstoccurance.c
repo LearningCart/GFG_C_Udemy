@@ -18,6 +18,7 @@ int main(int argc, char *argv[])
 
 
 // Omitted argument check for simplicity
+// Recursive solution
 int binary_search_recursive(const int *array, int size, int data, int start, int end)
 {
     int index;
@@ -55,6 +56,45 @@ int binary_search_recursive(const int *array, int size, int data, int start, int
     return -1;
 }
 
+
+
+// Omitted argument check for simplicity
+// Iterative solution
+int binary_search_iterative(const int *array, int size, int data)
+{
+    int index;
+    int mid;
+    int low;
+    int high;
+
+    low = 0;
+    high = size - 1;
+
+    while (low <= high)
+    {
+        mid = (low + high) / 2;
+        if(array[mid] > data)
+        {
+            high = mid -1;
+        }else if (array[mid] < data)
+        {
+            low = mid + 1;
+        }else
+        {
+            if( 0 == mid || array[mid - 1] != array[mid])
+            {
+                return mid;
+            }else
+            {
+                // Go to lower half., 
+                high = mid -1;
+            }
+        }
+    }
+    
+    return -1;
+}
+
 void printarray(int *array, int size)
 {
     if(NULL == array || 0 >= size)
@@ -84,8 +124,18 @@ void testcase1(void)
     printarray(array, TOTAL_ELEMENTS);
     printf("\n");
 
-    printf("First occurance of %d is %d\n", 15, binary_search_recursive(array, TOTAL_ELEMENTS, 15, 0, TOTAL_ELEMENTS - 1));
-    printf("First occurance of %d is %d\n", 17, binary_search_recursive(array, TOTAL_ELEMENTS, 17, 0, TOTAL_ELEMENTS - 1));
+    printf("Recursive first occurance of %d is %d\n", 15, binary_search_recursive(array, TOTAL_ELEMENTS, 15, 0, TOTAL_ELEMENTS - 1));
+    printf("Iterative first occurance of %d is %d\n", 15, binary_search_iterative(array, TOTAL_ELEMENTS, 15));
 
+    printf("Recursive first occurance of %d is %d\n", 17, binary_search_recursive(array, TOTAL_ELEMENTS, 17, 0, TOTAL_ELEMENTS - 1));
+    printf("Iterative first occurance of %d is %d\n", 17, binary_search_iterative(array, TOTAL_ELEMENTS, 17));
+
+    // First element
+    printf("Recursive first occurance of %d is %d\n", 17, binary_search_recursive(array, TOTAL_ELEMENTS, 10, 0, TOTAL_ELEMENTS - 1));
+    printf("Iterative first occurance of %d is %d\n", 17, binary_search_iterative(array, TOTAL_ELEMENTS, 10));
+    
+    // Negative case
+    printf("Recursive first occurance of %d is %d\n", 17, binary_search_recursive(array, TOTAL_ELEMENTS, 22, 0, TOTAL_ELEMENTS - 1));
+    printf("Iterative first occurance of %d is %d\n", 17, binary_search_iterative(array, TOTAL_ELEMENTS, 22));
 
 }
