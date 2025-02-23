@@ -1,7 +1,8 @@
 // Program to group all the odd bits to the left and
 // all the even bits to the right.
-#include <stdio.h>
+// Jatin Gandhi
 
+#include <stdio.h>
 
 // Data size
 #define DATASIZE_64BIT
