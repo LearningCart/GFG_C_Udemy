@@ -41,9 +41,9 @@ void test(data_type_t data)
     out = consolidateOddEvenBits(data);
 
     #ifdef DATASIZE_64BIT
-    printf("Consolidated odd and even bits of 0x%0llX is  0x%0llX\n", data, out);
+    printf("Consolidated odd and even bits of 0x%0llX = 0x%0llX\n", data, out);
     #else
-    printf("Consolidated odd and even bits of 0x%0X is  0x%0X\n", data, out);
+    printf("Consolidated odd and even bits of 0x%0X = 0x%0X\n", data, out);
     #endif
 }
 
@@ -90,7 +90,6 @@ data_type_t consolidateOddEvenBits(data_type_t data)
 
             oddbits |= (data & (1 << i)) ? 1 : 0;
         }
-        // Debug: printf("i = %d, odd bits = 0x%0llx, even bits = 0x%0llx\n", i, oddbits, evenbits);
     }
 
     // Move accumulated odd bits to upper half., 
